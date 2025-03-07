@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <SFML/Window/Event.hpp>
+#include <math.h>
+#include "mylib.hpp"
 
 using namespace std;
 
@@ -11,24 +14,24 @@ const int height = 800;
 
 int main(){
     sf::RenderWindow window(sf::VideoMode({width, height}), "Game");
+    window.setFramerateLimit(60);
 
     //Переменные
-    float radius = 100.f;
+    vec2f image{width/2, height/2};
+    float speed = 10.f;
 
+    //SF
     sf::Texture texture;
     sf::Clock clock;
-    sf::Shader shader;
-    sf::CircleShape circle(radius);
 
 
     //Загрузка ресурсов
-    if (!shader.loadFromFile("STATIC/SHADERS/fragment.frag", sf::Shader::Type::Fragment))
+    if (!texture.loadFromFile("STATIC/IMAGES/texture.jpg"))
         return -1;
 
     //Переменные для ресурсов
+    sf::Sprite sprite(texture);
 
-
-    circle.setPosition({(int)width/2-radius, (int)height/2-radius});
 
     while (window.isOpen()){
         while (const std::optional event = window.pollEvent()){
@@ -36,11 +39,26 @@ int main(){
                 window.close();
         }
 
-        shader.setUniform("time", clock.getElapsedTime().asSeconds());
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
+            window.close();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
+            image.x -= speed;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
+            image.x += speed;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
+            image.y -= speed;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
+            image.y += speed;
+        }
 
+        sprite.setPosition(sf::Vector2f{image.x, image.y});
         window.clear();
 
-        window.draw(circle, &shader);
+        window.draw(sprite);
 
         window.display();
     }
