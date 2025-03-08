@@ -10,18 +10,14 @@ class vec2{
     public:
     int x, y;
 
-    void print(){
-        cout << x << " " << y << endl;
-    }
+    void print();
 };
 
 class vec2f{
     public:
     float x, y;
 
-    void print(){
-        cout << x << " " << y << endl;
-    }
+    void print();
 };
 
 #endif //MYLIB_HPP

@@ -5,7 +5,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/Window/Event.hpp>
 #include <math.h>
-#include "mylib.hpp"
+#include "player.hpp"
 
 using namespace std;
 
@@ -17,20 +17,14 @@ int main(){
     window.setFramerateLimit(60);
 
     //Переменные
-    vec2f image{width/2, height/2};
-    float speed = 10.f;
 
     //SF
-    sf::Texture texture;
     sf::Clock clock;
 
-
     //Загрузка ресурсов
-    if (!texture.loadFromFile("STATIC/IMAGES/texture.jpg"))
-        return -1;
 
     //Переменные для ресурсов
-    sf::Sprite sprite(texture);
+    Player player(width/2, height/2, 10.f, "STATIC/IMAGES/texture.jpg");
 
 
     while (window.isOpen()){
@@ -42,23 +36,11 @@ int main(){
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
             window.close();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-            image.x -= speed;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-            image.x += speed;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-            image.y -= speed;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-            image.y += speed;
-        }
 
-        sprite.setPosition(sf::Vector2f{image.x, image.y});
+        player.body.move();
         window.clear();
 
-        window.draw(sprite);
+        window.draw(player.body.sprite);
 
         window.display();
     }
