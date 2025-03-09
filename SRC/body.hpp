@@ -10,12 +10,13 @@ using namespace std;
 
 class Body{
 public:
-    sf::Vector2f pos;
+    int x;
+    int y;
     sf::Sprite sprite;
-    int health;
     float speed;
+    int id;
 
-    Body(float x, float y, float speed, const TextureManager& texturePath);
+    Body(int x, int y, const TextureManager& texturePath) : speed(10.f), x(x), y(y), sprite(texturePath.getTexture()){}
     void move();
     void draw(sf::RenderWindow &window);
 };
