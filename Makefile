@@ -1,4 +1,4 @@
-TARGET = game
+TARGET = pingpong
 CC = g++
 
 PREF_SRC = ./SRC/

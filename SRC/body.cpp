@@ -1,17 +1,15 @@
 #include "body.hpp"
 
-//Body::Body(float x, float y, float speed, const TextureManager& texturePath){}
-
 void Body::move(){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && (x>0)){
         x -= speed;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) && (x + sprite.getTexture().getSize().x < width)){
         x += speed;
     }
-    sprite.setPosition({x, y});
 }
 
 void Body::draw(sf::RenderWindow &window){
+    sprite.setPosition({x, y});
     window.draw(sprite);
 }

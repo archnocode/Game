@@ -5,6 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "texturemanager.hpp"
+#include "settings.hpp"
 
 using namespace std;
 
@@ -16,7 +17,9 @@ public:
     float speed;
     int id;
 
-    Body(int x, int y, const TextureManager& texturePath) : speed(10.f), x(x), y(y), sprite(texturePath.getTexture()){}
+    Body(int x, int y, const TextureManager& texturePath) : speed(10.f), x(x), y(y), sprite(texturePath.getTexture()){
+        sprite.setScale({0.2f, 0.1f});
+    }
     void move();
     void draw(sf::RenderWindow &window);
 };
